@@ -1,0 +1,3 @@
+<resources>
+    <item type="layout" name="activity_feed_list">@layout/activity_feed_twopane</item>
+</resources>

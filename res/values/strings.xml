@@ -1,0 +1,9 @@
+<resources>
+
+    <string name="app_name">Overcast</string>
+    <string name="title_feed_detail">Feed Detail</string>
+    <string name="title_feed_list">feeds</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_edit_feeds">Edit Feeds</string>
+
+</resources>

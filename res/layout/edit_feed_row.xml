@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/feed_row"
+	android:layout_height="wrap_content"
+	android:layout_width="fill_parent"
+	android:orientation="horizontal"
+	android:padding="5dp">
+	<TextView android:id="@+id/feed_url"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_weight="5"
+		android:textSize="15dp"
+		android:layout_gravity="center_vertical"
+		android:text="" />
+	<ImageView
+		android:id="@+id/edit_feed"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_weight="1"
+		android:layout_gravity="center_vertical"
+		android:src="@android:drawable/ic_menu_edit" />
+	<ImageView
+		android:id="@+id/delete_feed"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_weight="1"
+		android:layout_gravity="center_vertical"
+		android:src="@android:drawable/ic_menu_delete" />
+</LinearLayout>
