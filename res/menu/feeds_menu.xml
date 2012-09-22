@@ -2,6 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 	<item android:id="@+id/menu_edit_feeds"
 		android:icon="@android:drawable/ic_menu_edit"
-		android:title="Add New"
+		android:title="Edit Feeds"
 		android:showAsAction="ifRoom|withText" />
 </menu>

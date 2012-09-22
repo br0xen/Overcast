@@ -1,5 +1,6 @@
 package com.br0xen.overcast;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,11 +31,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 	public DatabaseHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
-// Add Sample Data
-//addNewFeed("http://leo.am/podcasts/tnt");
-//addNewFeed("http://leo.am/podcasts/fr");
-//deleteFeed("http://leo.am/podcasts/aaa");
-
 		sql_db = this.getReadableDatabase();
 		db_mode = DB_MODE_READ;
 		all_feeds = new ArrayList<Feed>();
@@ -76,6 +72,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 	public void addNewFeed(String url) {
+		// First, Check if this is a valid URL
+		// Quick check for protocol (http or https)
+		if(!url.substring(0,4).equals("http")) {
+			url="http://"+url;
+		}
+		try {
+			URL u = new URL(url);
+			url = u.toURI().toString();
+		} catch(Exception e) {
+			// Invalid URL, do not add.
+			return; 
+		}
 		if(!feedIsInDB(url)) {
 			if(db_mode == DB_MODE_READ) {
 				sql_db.close();
@@ -83,6 +91,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			}
 			if(db_mode == DB_MODE_CLOSED) { sql_db = this.getWritableDatabase(); }
 
+			
 			ContentValues values = new ContentValues();
 			values.put(FEEDS_KEY_URL, url);
 			sql_db.insert(TABLE_FEEDS, null, values);
@@ -152,12 +161,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		String CREATE_FEEDS_TABLE = "CREATE TABLE "+TABLE_FEEDS
 				+"("+FEEDS_KEY_ID+" INTEGER PRIMARY KEY,"
 				+FEEDS_KEY_URL+" TEXT)";
-//				+FEEDS_KEY_NAME+" TEXT,"
-//				+FEEDS_KEY_URL+" TEXT,"
-//				+FEEDS_KEY_FL_NAME+" TEXT,"
-//				+FEEDS_KEY_FL_LENGTH+" TEXT,"
-//				+FEEDS_KEY_FL_TYPE+" TEXT,"
-//				+FEEDS_KEY_PUB_DATE+" INTEGER)";
 		db.execSQL(CREATE_FEEDS_TABLE);
 	}
 
