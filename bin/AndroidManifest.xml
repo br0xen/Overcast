@@ -12,18 +12,23 @@
         android:label="@string/app_name"
         android:theme="@android:style/Theme.Holo.Light" >
         <activity
-            android:name=".feedListActivity"
+            android:name=".FeedListActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait" >
+			android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+		<activity
+			android:name=".FeedDetailActivity"
+			android:label="@string/app_name"
+			android:launchMode="singleInstance">
+		</activity>
         <activity
             android:name=".EditFeedsActivity"
             android:label="@string/title_activity_edit_feeds"
-            android:screenOrientation="portrait" >
+			android:launchMode="singleInstance">
         </activity>
     </application>
 </manifest>

@@ -11,6 +11,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static List<Feed> all_feeds = new ArrayList<Feed>();
@@ -36,7 +38,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		all_feeds = new ArrayList<Feed>();
 		loadAllFeeds();
 		sql_db.close();
-		db_mode = DB_MODE_CLOSED;;	
+		db_mode = DB_MODE_CLOSED;
+	}
+
+	public DatabaseHelper(Context context, boolean no_load) {
+		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+		if(!no_load) {
+			sql_db = this.getReadableDatabase();
+			db_mode = DB_MODE_READ;
+			all_feeds = new ArrayList<Feed>();
+			loadAllFeeds();
+			sql_db.close();
+		}
+		db_mode = DB_MODE_CLOSED;
+	}
+
+	public void loadFeedArray(ArrayList<Feed> fl) {
+		all_feeds = fl;
 	}
 
 	public void loadAllFeeds() {

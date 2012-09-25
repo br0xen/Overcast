@@ -7,12 +7,17 @@
     android:layout_marginRight="16dp"
     android:divider="?android:attr/dividerHorizontal"
     android:showDividers="middle"
-    tools:context=".feedListActivity">
+    tools:context=".FeedListActivity">
 
-    <fragment android:name="com.br0xen.overcast.feedListFragment"
+    <fragment android:name="com.br0xen.overcast.FeedListFragment"
         android:id="@+id/feed_list"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1" />
+
+	<FrameLayout android:id="@+id/feed_detail_container"
+		android:layout_width="0dp"
+		android:layout_height="match_parent"
+		android:layout_weight="1" />
 
 </LinearLayout>

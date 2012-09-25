@@ -4,27 +4,28 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class feedListFragment extends ListFragment {
+public class FeedListFragment extends ListFragment {
     private static final String STATE_ACTIVATED_POSITION = "activated_position";
     private int mActivatedPosition = ListView.INVALID_POSITION;
 	private DatabaseHelper db; // Need passed from Activity
     private Handler mHandler = new Handler(); 
 	private FeedAdapter feed_adapter;
     public interface Callbacks { public void onItemSelected(String id); }
-//    private Callbacks sFeedCallbacks = new Callbacks() { public void onItemSelected(String id) {} };
-//    private Callbacks mCallbacks = sFeedCallbacks;
-    public feedListFragment() { }
+    private Callbacks sFeedCallbacks = new Callbacks() { public void onItemSelected(String id) {} };
+    private Callbacks mCallbacks = sFeedCallbacks;
+    public FeedListFragment() { }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-		db = ((feedListActivity)getActivity()).getDB();
+		db = ((FeedListActivity)getActivity()).getDB();
         mHandler.postDelayed(mUpdateViewTask, 100);
     }
 
@@ -70,10 +71,10 @@ public class feedListFragment extends ListFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//		if (savedInstanceState != null && savedInstanceState
-//			.containsKey(STATE_ACTIVATED_POSITION)) {
-//			setActivatedPosition(savedInstanceState.getInt(STATE_ACTIVATED_POSITION));
-//        }
+		if (savedInstanceState != null && savedInstanceState
+			.containsKey(STATE_ACTIVATED_POSITION)) {
+			setActivatedPosition(savedInstanceState.getInt(STATE_ACTIVATED_POSITION));
+        }
     }
 
     @Override
@@ -82,19 +83,19 @@ public class feedListFragment extends ListFragment {
         if (!(activity instanceof Callbacks)) {
             throw new IllegalStateException("Activity must implement fragment's callbacks.");
         }
-//        mCallbacks = (Callbacks) activity;
+        mCallbacks = (Callbacks) activity;
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-//        mCallbacks = sFeedCallbacks;
+        mCallbacks = sFeedCallbacks;
     }
 
     @Override
     public void onListItemClick(ListView listView, View view, int position, long id) {
         super.onListItemClick(listView, view, position, id);
-//        mCallbacks.onItemSelected(DummyContent.ITEMS.get(position).id);
+        mCallbacks.onItemSelected(position+"");
     }
 
     @Override
@@ -128,12 +129,6 @@ public class feedListFragment extends ListFragment {
 				updateList();
 			} catch(NullPointerException e) { 
 			} finally {
-//				boolean all_updated = true;
-//				for(Feed f : db.all_feeds) {
-//					if(!f.updated) {
-//						all_updated = false;
-//					}
-//				}
 				mHandler.postDelayed(this, 500);
 			}
         }

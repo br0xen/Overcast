@@ -1,9 +1,13 @@
 <resources>
-
     <string name="app_name">Overcast</string>
     <string name="title_feed_detail">Feed Detail</string>
     <string name="title_feed_list">feeds</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_edit_feeds">Edit Feeds</string>
 
+    <string name="lbl_episode_title">Episode Title</string>
+    <string name="lbl_episode_file">Episode File</string>
+    <string name="lbl_episode_file_sz">File Size</string>
+    <string name="lbl_episode_file_tp">File Type</string>
+    <string name="lbl_episode_pub_dt">Published Date</string>
 </resources>

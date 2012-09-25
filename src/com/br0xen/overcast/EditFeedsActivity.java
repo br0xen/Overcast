@@ -46,7 +46,7 @@ public class EditFeedsActivity extends ListActivity {
 
 	@Override
 	public void onBackPressed() {
-		Intent going_back = new Intent(this, feedListActivity.class);
+		Intent going_back = new Intent(this, FeedListActivity.class);
 		startActivity(going_back);
 		finish();
 	}

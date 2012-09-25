@@ -24,11 +24,20 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import android.os.AsyncTask;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class Feed {
+public class Feed implements Parcelable {
+	// Feed Level Variables
 	public int id;
-	public String title = "";
+	public String feed_title = "";
 	public String url = "";
+
+	// Feed Image
+	public String image_url = "";
+	
+	// Item Level Variables
+	public String title = "";
 	public String file_name = "";
 	public String full_file_name = "";
 	public int file_length = 0;
@@ -59,6 +68,57 @@ public class Feed {
 		}
 	}
 
+	/* Parcelable Functions */
+	public Feed(Parcel in) {
+		// Feed Level Variables
+		this.id = in.readInt();
+		this.feed_title = in.readString();
+		this.url = in.readString();
+		// Feed Image
+		this.image_url = in.readString();
+		// Item level Variables
+		this.title = in.readString();
+		this.file_name = in.readString();
+		this.full_file_name = in.readString();
+		this.file_length = in.readInt();
+		this.file_type = in.readString();
+		this.pub_date = new Date(in.readLong());
+		this.updated = in.readByte()==1;
+	}
+
+	@Override
+	public int describeContents() { return 0; }
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		// Feed Level Variables
+		dest.writeInt(this.id);
+		dest.writeString(this.feed_title);
+		dest.writeString(this.url);
+		// Feed Image
+		dest.writeString(this.image_url);
+		// Item Level Variables
+		dest.writeString(this.title);
+		dest.writeString(this.file_name);
+		dest.writeString(this.full_file_name);
+		dest.writeInt(this.file_length);
+		dest.writeString(this.file_type);
+		dest.writeLong(this.pub_date.getTime());
+		dest.writeByte((byte) (this.updated ? 1 : 0));
+	}
+
+	public static final Parcelable.Creator<Feed> CREATOR = new Parcelable.Creator<Feed>() {
+		public Feed createFromParcel(Parcel in) {
+			return new Feed(in);
+		}
+
+		public Feed[] newArray(int size) {
+			return new Feed[size];
+		}
+	};
+
+	/* End Parcelable Functions */
+
 	public void setURL(String new_url) {
 		this.url = new_url;
 	}
@@ -74,6 +134,9 @@ public class Feed {
 		if(feed_doc != null) {
 			Element feed_element = feed_doc.getDocumentElement();
 			if(!feed_element.hasChildNodes()) { return; }
+			this.feed_title = xmlGetNodeContents(feed_element, "title");
+			Element feed_image = xmlGetFirstNode(feed_element, "image");
+			this.image_url = xmlGetNodeContents(feed_image, "url");
 			Element newest_feed = xmlGetFirstNode(feed_element, "item");
 			this.title = xmlGetNodeContents(newest_feed, "title");
 			this.full_file_name = xmlGetAttr(newest_feed, "enclosure", "url");
