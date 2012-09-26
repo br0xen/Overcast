@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -53,9 +52,6 @@ public class FeedListActivity extends FragmentActivity
 		if(db == null) { db = new DatabaseHelper(this.getApplicationContext(), true); }
 		if(savedInstanceState != null && savedInstanceState.containsKey(ARG_DB)) {
 			ArrayList<Feed> fl = savedInstanceState.getParcelableArrayList(ARG_DB);
-			for(Feed f : fl) {
-				Log.w("OC","Restoring Feed: "+f.title);
-			}
 			db.loadFeedArray(fl);
 			// Now update the ones that need it.
 			for(Feed f : db.all_feeds) {
