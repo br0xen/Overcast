@@ -11,5 +11,4 @@ The Filename for the most recent item in the feed.
 
 That's it, enjoy. If you have any questions or problems, feel free to let me know. I rushed this from start to finish and everything works fine on my Nexus S, so I hope it works for you too!
 
-Link on Google Play:
-https://play.google.com/store/apps/details?id=com.br0xen.overcast
+This app is no longer available on the Google Play store because overcast.fm put a trademark infringement claim on it, even though their app is iOS only, and came out 2 years later.
